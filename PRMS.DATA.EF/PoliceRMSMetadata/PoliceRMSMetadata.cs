@@ -126,7 +126,7 @@ namespace PRMS.DATA.EF//PoliceRMSMetadata
         public decimal Cost { get; set; }
     }
 
-    public class VehiclesMetadata
+    public class VehicleMetadata
     {
         //public int VehicleID { get; set; }
 
@@ -173,8 +173,8 @@ namespace PRMS.DATA.EF//PoliceRMSMetadata
         [Display(Name = "In Maint?")]
         public bool IsInMaint { get; set; }
     }
-    [MetadataType(typeof(VehiclesMetadata))]
-    public partial class Vehicles
+    [MetadataType(typeof(VehicleMetadata))]
+    public partial class Vehicle
     { }
 
 }
