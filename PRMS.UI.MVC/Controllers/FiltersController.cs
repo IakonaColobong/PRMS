@@ -13,34 +13,35 @@ namespace PRMS.UI.MVC.Controllers
 {
     public class FiltersController : Controller
     {
+        
         private PoliceRMSEntities db = new PoliceRMSEntities();
         // GET: Filters
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View();
         }
+        //public ActionResult AmmunitionPaging(string searchString, int page = 1)
+        //{
+        //    int pageSize = 5;
+        //    var ammunition = db.Ammunitions.OrderBy(a => a.Caliber).ToList();
 
-        public ActionResult AmmunitionPaging(string searchString, int page = 1)
-        {
-            int pageSize = 5;
-            var ammunition = db.Ammunitions.OrderBy(a => a.Caliber).ToList();
-
-            //wrote custom query to list ammunition by caliber
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                ammunition = (
-                    from a in ammunition
-                    where a.Caliber.ToLower().Contains(searchString.ToLower())
-                    select a
-                    ).ToList();
-            }
-            ViewBag.SearchString = searchString;
-            return View(ammunition.ToPagedList(page, pageSize));
-
+        //    //wrote custom query to list ammunition by caliber
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        ammunition = (
+        //            from a in ammunition
+        //            where a.Caliber.ToLower().Contains(searchString.ToLower())
+        //            select a
+        //            ).ToList();
+        //    }
+        //    ViewBag.SearchString = searchString;
+        //    return View(ammunition.ToPagedList(page, pageSize));
 
 
-        }
 
+        //}
+        [Authorize(Roles = "Admin")]
         public ActionResult EmployeePaging(string searchString, int page = 1)
         {
             int pageSize = 5;

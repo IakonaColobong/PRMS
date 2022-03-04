@@ -26,20 +26,21 @@
             }
         </div>
 
-        <div class="col-md-6 d-flex justify-content-center">
+        <div class="col-md-3 d-flex justify-content-center">
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
             @*
-                The code above displays the current page of X number of records (Page Count). We use the tierney operator above in the event
-                that no records are in the Page Count we wont show "Page 1 of 0"
+        The code above displays the current page of X number of records (Page Count). We use the tierney operator above in the event
+        that no records are in the Page Count we wont show "Page 1 of 0"
             *@
+            </div>
+            <div class="col-md-3 d-flex justify-content-center">
+                @Html.PagedListPager(Model, page => Url.Action("EmployeePaging", new { page, searchString = ViewBag.SearchString }))
+                @*
+            The code above generates the individual page buttons. It uses the strongly typed collection defined on line 3 of this view.
+            For each page button, we are creating an Url.Action that goes to the BooksMVCPaging method on the Filters controller. It also passes over the next page number.*@
 
-            @Html.PagedListPager(Model, page => Url.Action("EmployeePaging", new { page, searchString = ViewBag.SearchString }))
-            @*
-                The code above generates the individual page buttons. It uses the strongly typed collection defined on line 3 of this view.
-                For each page button, we are creating an Url.Action that goes to the BooksMVCPaging method on the Filters controller. It also passes over the next page number.*@
-
+            </div>
         </div>
-    </div>
     <div class="row">
         <div class="col-md-2">
             <p>
@@ -110,11 +111,11 @@
                         @Html.DisplayFor(modelItem => item.Promotion_Date)
                     </td>
 
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId })
-                    </td>
+                    @*<td>
+                        @Html.ActionLink("Edit", "Edit","Employees", new { id = item.EmployeeId }) |
+                        @Html.ActionLink("Details", "Details", "Employees", null, new { id = item.EmployeeId }) |
+                        @Html.ActionLink("Delete", "Delete", "Employees", new { id = item.EmployeeId })
+                    </td>*@
                 </tr>
             }
 
