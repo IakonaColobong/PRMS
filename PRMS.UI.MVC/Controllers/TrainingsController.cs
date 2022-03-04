@@ -10,6 +10,7 @@ using PRMS.DATA.EF;
 
 namespace PRMS.UI.MVC.Controllers
 {
+    [Authorize(Users = "Admin, Armorer, Patrol")]
     public class TrainingsController : Controller
     {
         private PoliceRMSEntities db = new PoliceRMSEntities();

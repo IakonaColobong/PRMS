@@ -10,6 +10,7 @@ using PRMS.DATA.EF;
 
 namespace PRMS.UI.MVC.Controllers
 {
+    [Authorize(Users = "Admin, Armorer, Patrol, Detective, Fleet")]
     public class VehiclesController : Controller
     {
         private PoliceRMSEntities db = new PoliceRMSEntities();
@@ -36,6 +37,7 @@ namespace PRMS.UI.MVC.Controllers
             return View(vehicle);
         }
 
+        [Authorize(Users = "Admin, Fleet")]
         // GET: Vehicles/Create
         public ActionResult Create()
         {
@@ -60,7 +62,7 @@ namespace PRMS.UI.MVC.Controllers
             ViewBag.EmployeeId = new SelectList(db.Employees, "EmployeeId", "First_Name", vehicle.EmployeeId);
             return View(vehicle);
         }
-
+        [Authorize(Users = "Admin, Fleet")]
         // GET: Vehicles/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -93,7 +95,7 @@ namespace PRMS.UI.MVC.Controllers
             ViewBag.EmployeeId = new SelectList(db.Employees, "EmployeeId", "First_Name", vehicle.EmployeeId);
             return View(vehicle);
         }
-
+        [Authorize(Users = "Admin, Fleet")]
         // GET: Vehicles/Delete/5
         public ActionResult Delete(int? id)
         {

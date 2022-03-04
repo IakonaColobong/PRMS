@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<PRMS.DATA.EF.Vehicle>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Fleet Management";
 }
 
-<h2>Index</h2>
-
+<div class="container-fluid text-center mt-4" >
 <p>
+<h2>@ViewBag.Title</h2>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
@@ -83,5 +83,5 @@
         </td>
     </tr>
 }
-
 </table>
+    </div>

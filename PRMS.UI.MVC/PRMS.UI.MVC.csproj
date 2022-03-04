@@ -280,7 +280,8 @@
     <Content Include="_Archive\img\course-1.jpg" />
     <Content Include="_Archive\img\course-2.jpg" />
     <Content Include="_Archive\img\course-3.jpg" />
-    <Content Include="_Archive\img\MDT.jpg" />
+    <Content Include="Content\img\MDT.jpg" />
+    <Content Include="Content\img\Police.jpg" />
     <Content Include="_Archive\img\team-1.jpg" />
     <Content Include="_Archive\img\team-2.jpg" />
     <Content Include="_Archive\img\team-3.jpg" />
