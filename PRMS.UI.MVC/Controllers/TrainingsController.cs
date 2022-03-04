@@ -7,10 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PRMS.DATA.EF;
+using PagedList;
+using PagedList.Mvc;
 
 namespace PRMS.UI.MVC.Controllers
 {
-    [Authorize(Users = "Admin, Armorer, Patrol")]
+    [Authorize]
     public class TrainingsController : Controller
     {
         private PoliceRMSEntities db = new PoliceRMSEntities();

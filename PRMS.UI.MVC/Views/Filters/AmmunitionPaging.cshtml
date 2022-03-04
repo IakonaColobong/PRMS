@@ -1,0 +1,69 @@
+﻿@* We updated the model to use paged list instead of IEnumerable. This change is necessary so that we can benefit from
+    functionality built into the PagedList collection type.*@
+@model PagedList.IPagedList<PRMS.DATA.EF.Ammunition>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Search Armory | Ammunition";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@* Below is the search box functionality *@
+Search
+@using (Html.BeginForm("AmmunitionPaging", "Filters", FormMethod.Get))
+{
+    <p>
+        Find by Name: @Html.TextBox("SearchString", ViewBag.SearchString as string)
+        <input type="submit" value="search" />
+    </p>
+}
+
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@*
+    The code above displays the current page of X number of records (Page Count). We use the tierney operator above in the event
+    that no records are in the Page Count we wont show "Page 1 of 0"
+*@
+
+@Html.PagedListPager(Model, page => Url.Action("AmmunitionPaging", new { page, searchString = ViewBag.SearchString }))
+@*
+    The code above generates the individual page buttons. It uses the strongly typed collection defined on line 3 of this view.
+    For each page button, we are creating an Url.Action that goes to the BooksMVCPaging method on the Filters controller. It also passes over the next page number.
+*@
+<h2>AmmunitionPaging</h2>
+
+<p>
+    @Html.ActionLink("Home", "Index", "Home")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Caliber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Supplier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Qty)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Caliber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qty)
+            </td>
+         
+        </tr>
+    }
+
+</table>

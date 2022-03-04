@@ -1,10 +1,38 @@
-﻿@model IEnumerable<PRMS.DATA.EF.Employee>
+﻿@* We updated the model to use paged list instead of IEnumerable. This change is necessary so that we can benefit from
+    functionality built into the PagedList collection type.*@
+@model PagedList.IPagedList<PRMS.DATA.EF.Employee>
+@using PagedList.Mvc
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Employees";
 }
 
-<h2>Index</h2>
+
+
+@* Below is the search box functionality *@
+Search
+@using (Html.BeginForm("Index", "Employee", FormMethod.Get))
+{
+    <p>
+        Find by Name: @Html.TextBox("SearchString", ViewBag.SearchString as string)
+        <input type="submit" value="search" />
+    </p>
+}
+
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@*
+    The code above displays the current page of X number of records (Page Count). We use the tierney operator above in the event
+    that no records are in the Page Count we wont show "Page 1 of 0"
+*@
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchString = ViewBag.SearchString }))
+@*
+    The code above generates the individual page buttons. It uses the strongly typed collection defined on line 3 of this view.
+    For each page button, we are creating an Url.Action that goes to the BooksMVCPaging method on the Filters controller. It also passes over the next page number.*@
+
+
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,64 +40,65 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.First_Name)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().First_Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Last_Name)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Last_Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Badge)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Badge)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date_Of_Hire)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Date_Of_Hire)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date_of_Termination)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Date_of_Termination)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Pay_Rate_Hourly)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Pay_Rate_Hourly)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Promotion_Date)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Promotion_Date)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.First_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Last_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Badge)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date_Of_Hire)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date_of_Termination)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pay_Rate_Hourly)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Promotion_Date)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EmployeeId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.First_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Last_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Badge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Of_Hire)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_of_Termination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pay_Rate_Hourly)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Promotion_Date)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId })
+            </td>
+        </tr>
+    }
 
 </table>

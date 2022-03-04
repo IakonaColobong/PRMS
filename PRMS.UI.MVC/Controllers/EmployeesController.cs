@@ -7,10 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PRMS.DATA.EF;
+using PagedList;
+using PagedList.Mvc;
 
 namespace PRMS.UI.MVC.Controllers
 {
-    [Authorize(Users = "Admin")]
+    [Authorize]
     public class EmployeesController : Controller
     {
         private PoliceRMSEntities db = new PoliceRMSEntities();
@@ -41,6 +43,20 @@ namespace PRMS.UI.MVC.Controllers
         {
             return View();
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "First_Name,Last_Name,Badge,Date_Of_Hire,Date_Of_Termination,Pay_Rate, Title, PromotionDate")] Employee employee)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Employees.Add(employee);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(employee);
+        //}
+
 
         // POST: Employees/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -58,6 +74,8 @@ namespace PRMS.UI.MVC.Controllers
 
             return View(employee);
         }
+
+
 
         // GET: Employees/Edit/5
         public ActionResult Edit(int? id)

@@ -7,13 +7,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PRMS.DATA.EF;
+using PagedList;
+using PagedList.Mvc;
 
 namespace PRMS.UI.MVC.Controllers
 {
-    [Authorize(Users = "Admin")]
+    [Authorize]
     public class AmmunitionsController : Controller
     {
         private PoliceRMSEntities db = new PoliceRMSEntities();
+        private object ctx;
 
         // GET: Ammunitions
         public ActionResult Index()
@@ -115,6 +118,8 @@ namespace PRMS.UI.MVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+       
 
         protected override void Dispose(bool disposing)
         {

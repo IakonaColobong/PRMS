@@ -7,10 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PRMS.DATA.EF;
+using PagedList;
+using PagedList.Mvc;
 
 namespace PRMS.UI.MVC.Controllers
 {
-    [Authorize(Users = "Admin, Armorer, Patrol, Detective, Fleet")]
+    [Authorize]
     public class VehiclesController : Controller
     {
         private PoliceRMSEntities db = new PoliceRMSEntities();
@@ -37,7 +39,7 @@ namespace PRMS.UI.MVC.Controllers
             return View(vehicle);
         }
 
-        [Authorize(Users = "Admin, Fleet")]
+        [Authorize]
         // GET: Vehicles/Create
         public ActionResult Create()
         {
@@ -62,7 +64,7 @@ namespace PRMS.UI.MVC.Controllers
             ViewBag.EmployeeId = new SelectList(db.Employees, "EmployeeId", "First_Name", vehicle.EmployeeId);
             return View(vehicle);
         }
-        [Authorize(Users = "Admin, Fleet")]
+        [Authorize]
         // GET: Vehicles/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -95,7 +97,7 @@ namespace PRMS.UI.MVC.Controllers
             ViewBag.EmployeeId = new SelectList(db.Employees, "EmployeeId", "First_Name", vehicle.EmployeeId);
             return View(vehicle);
         }
-        [Authorize(Users = "Admin, Fleet")]
+        [Authorize]
         // GET: Vehicles/Delete/5
         public ActionResult Delete(int? id)
         {
